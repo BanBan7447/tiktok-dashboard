@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TikTok Analytics Dashboard – Demo</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen flex flex-col items-center p-6">
+  <!-- Header -->
+  <header class="w-full max-w-4xl flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold text-gray-800">🎬 TikTok Analytics Dashboard (Demo)</h1>
+    <button id="loginBtn" class="bg-pink-500 text-white px-4 py-2 rounded-xl hover:bg-pink-600 transition">
+      Login with TikTok
+    </button>
+  </header>
+
+  <!-- User Info -->
+  <section id="userSection" class="hidden bg-white rounded-2xl shadow-md p-6 w-full max-w-4xl">
+    <div class="flex items-center space-x-4">
+      <img src="https://i.pravatar.cc/100?img=13" alt="Avatar" class="rounded-full w-20 h-20">
+      <div>
+        <h2 class="text-xl font-semibold">@moviereview_demo</h2>
+        <p class="text-gray-600">Movie recap creator | 🎥 Sharing movie stories</p>
+        <div class="flex space-x-6 mt-2 text-gray-700">
+          <span>Followers: <strong>10,245</strong></span>
+          <span>Likes: <strong>198,542</strong></span>
+          <span>Videos: <strong>42</strong></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Chart -->
+  <section id="chartSection" class="hidden bg-white rounded-2xl shadow-md p-6 mt-6 w-full max-w-4xl">
+    <h3 class="text-lg font-semibold mb-4">Follower Growth (Last 7 Days)</h3>
+    <canvas id="statsChart" width="400" height="150"></canvas>
+  </section>
+
+  <!-- Video List -->
+  <section id="videosSection" class="hidden bg-white rounded-2xl shadow-md p-6 mt-6 w-full max-w-4xl">
+    <h3 class="text-lg font-semibold mb-4">Recent Videos</h3>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+      <div class="bg-gray-50 rounded-xl p-2 shadow hover:shadow-md transition">
+        <img src="https://picsum.photos/300/200?random=1" class="rounded-lg mb-2" alt="Video 1">
+        <p class="text-sm font-medium">🎞 The Batman Recap</p>
+        <p class="text-xs text-gray-500">Views: 124K | Likes: 8.2K</p>
+      </div>
+      <div class="bg-gray-50 rounded-xl p-2 shadow hover:shadow-md transition">
+        <img src="https://picsum.photos/300/200?random=2" class="rounded-lg mb-2" alt="Video 2">
+        <p class="text-sm font-medium">🍿 Avengers: Endgame</p>
+        <p class="text-xs text-gray-500">Views: 98K | Likes: 6.4K</p>
+      </div>
+      <div class="bg-gray-50 rounded-xl p-2 shadow hover:shadow-md transition">
+        <img src="https://picsum.photos/300/200?random=3" class="rounded-lg mb-2" alt="Video 3">
+        <p class="text-sm font-medium">👻 Horror Movie Night</p>
+        <p class="text-xs text-gray-500">Views: 87K | Likes: 5.9K</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="mt-10 text-gray-500 text-sm text-center">
+    <p>This is a demo version using mock data to simulate TikTok API integration.</p>
+    <p>© 2025 Movie Review Dashboard Demo</p>
+  </footer>
+
+  <script>
+    const loginBtn = document.getElementById("loginBtn");
+    const userSection = document.getElementById("userSection");
+    const chartSection = document.getElementById("chartSection");
+    const videosSection = document.getElementById("videosSection");
+
+    loginBtn.addEventListener("click", () => {
+      loginBtn.textContent = "Connected ✅";
+      userSection.classList.remove("hidden");
+      chartSection.classList.remove("hidden");
+      videosSection.classList.remove("hidden");
+      renderChart();
+    });
+
+    function renderChart() {
+      const ctx = document.getElementById('statsChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+          datasets: [{
+            label: 'Followers',
+            data: [9800, 9900, 10050, 10120, 10200, 10300, 10450],
+            borderColor: '#ec4899',
+            fill: false,
+            tension: 0.3
+          }]
+        },
+        options: {
+          scales: {
+            y: { beginAtZero: false }
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
